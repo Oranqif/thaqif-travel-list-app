@@ -53,10 +53,10 @@ function Form( {handleAddItems} ) {
 
 function Item( {item, onDeleteItem, onUpdateItem} ) {
   return (
-    <li key={item.id}
-    className={item.packed ? "strike-through" : ""}
-    >
-    {item.description} | {item.quantity}
+    <li key={item.id}>
+      <span style={item.packed ? {textDecoration: "line-through"} : {}}>
+      {item.description} | {item.quantity}
+      </span>
     <input 
     id="checkbox" 
     name="checkbox" 
