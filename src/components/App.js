@@ -89,16 +89,19 @@ function PackingList( {items, onDeleteItem, onUpdateItem} ) {
   );
 };
 
-function Stats( {items} ) {
+function Stats( {items, onDeleteEverything} ) {
   const numItems = items.length;
   const numPackedItems = items.filter((item) => item.packed).length;
   const numPackedItemsPercentage = Math.round((numPackedItems/numItems) * 100)
   return (
     <footer className="stats">
       {!(numPackedItemsPercentage === 100) ? 
-      <em>You have {numItems} items in the list. You already packed {numPackedItems} ({numPackedItemsPercentage}%).</em> 
+      <em>You have {numItems} items in the list. You already packed {numPackedItems} ({!isNaN(numPackedItemsPercentage) ? numPackedItemsPercentage : 0}%).</em> 
       : 
-      <em>You got everything!</em> }
+      <em>You got everything!</em>}
+      <button style={{marginLeft: 100}} onClick={onDeleteEverything()}>
+        Clear Everything
+      </button>
     </footer>
   );
 };
@@ -118,6 +121,11 @@ function App() {
     // Delete item from the list...
     setItems((prevItem) => prevItem.filter((item) => item.id !== id));
   };
+
+  const handleDeleteEverything = (item) => {
+    // Delete item from the list...
+    setItems((prevItem) => prevItem);
+  };
   
   const handleUpdateItem = (id) => {
     setItems((prevItem) => prevItem.map(
@@ -131,7 +139,7 @@ function App() {
       <Logo />
       <Form handleAddItems={handleAddItems}/>
       <PackingList items={items} onDeleteItem={handleDeleteItem} onUpdateItem={handleUpdateItem}/>
-      <Stats items={items} />
+      <Stats items={items} onDeleteEverything={handleDeleteEverything} />
     </div>
   );
 };
