@@ -99,7 +99,7 @@ function Stats( {items, onDeleteEverything} ) {
       <em>You have {numItems} items in the list. You already packed {numPackedItems} ({!isNaN(numPackedItemsPercentage) ? numPackedItemsPercentage : 0}%).</em> 
       : 
       <em>You got everything!</em>}
-      <button style={{marginLeft: 100}} onClick={onDeleteEverything()}>
+      <button style={{marginLeft: 100}}>
         Clear Everything
       </button>
     </footer>
@@ -121,11 +121,6 @@ function App() {
     // Delete item from the list...
     setItems((prevItem) => prevItem.filter((item) => item.id !== id));
   };
-
-  const handleDeleteEverything = (item) => {
-    // Delete item from the list...
-    setItems((prevItem) => prevItem);
-  };
   
   const handleUpdateItem = (id) => {
     setItems((prevItem) => prevItem.map(
@@ -139,7 +134,7 @@ function App() {
       <Logo />
       <Form handleAddItems={handleAddItems}/>
       <PackingList items={items} onDeleteItem={handleDeleteItem} onUpdateItem={handleUpdateItem}/>
-      <Stats items={items} onDeleteEverything={handleDeleteEverything} />
+      <Stats items={items} />
     </div>
   );
 };
